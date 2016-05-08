@@ -68,7 +68,7 @@ function computeTrajectory () {
   for (var i = 0; i < n; i++) {
     var t = t0 + (t1 - t0) * i / (n - 1);
     var y = y0 + (y1 - y0) * (t - t0) / (t1 - t0);
-    // var y = v0 * t - 0.5 * g * t * t + scatter
+    // var y = v0 * t - 0.5 * g * t * t;
     trajectoryData[i] = {t: t, y: y};
   }
 }
@@ -151,7 +151,14 @@ function computeAction (data) {
     var dt = t1 - t0;
     var dy = y1 - y0;
 
-    action[i] = 0.5 / dt * (dy * dy - g * (y0 + y1) * dt * dt);
+    var KE = 0.5 * Math.pow(dy / dt, 2)
+    var PE = g * (y0 + y1) * 0.5;
+    action[i] = {
+      KE: KE,
+      PE: PE,
+      Etot: PE + KE,
+      S: 0.5 / dt * (dy * dy - g * (y0 + y1) * dt * dt)
+    };
   }
 
   return action;
@@ -202,20 +209,29 @@ function updateTrajectory (data) {
   var tr = d3.select('#action tbody').selectAll('tr').data(action);
 
   tr.each(function (d, i) {
-    d3.select(this).select('td.action').text(function () {
-      return action[i].toFixed(3);
-    });
+    d3.select(this).select('td.action').text(function () { return action[i].S.toFixed(3); });
+    d3.select(this).select('td.ke').text(function () { return action[i].KE.toFixed(3); });
+    d3.select(this).select('td.pe').text(function () { return action[i].PE.toFixed(3); });
+    d3.select(this).select('td.etot').text(function () { return action[i].Etot.toFixed(3); });
   });
 
   var trEnter = tr.enter().append('tr');
+  trEnter.append('td')
+      .attr('class', 'pe')
+      .text(function (d, i) { return action[i].PE.toFixed(3); });
   trEnter.append('td');
   trEnter.append('td')
+      .attr('class', 'ke')
+      .text(function (d, i) { return action[i].KE.toFixed(3); });
+  trEnter.append('td');
+  trEnter.append('td')
+      .attr('class', 'etot')
+      .text(function (d, i) { return action[i].Etot.toFixed(3); });
+  trEnter.append('td')
       .attr('class', 'action')
-      .text(function (d, i) {
-        return action[i].toFixed(3);
-      });
+      .text(function (d, i) { return action[i].S.toFixed(3); });
 
-  var S = action.reduce(function (a, x) { return a + x; }, 0);
+  var S = action.reduce(function (a, x) { return a + x.S; }, 0);
   var tf = d3.select('#action tfoot').selectAll('tr').data([S]);
   tf.each(function (d, i) {
     d3.select(this).select('td.sum').text(S.toFixed(3));
