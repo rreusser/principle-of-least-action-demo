@@ -4,15 +4,22 @@ html, body {
   padding: 0;
 }
 
-#action {
+#table-container {
   position: absolute;
-  top: 0;
+  top: 100px;
   right: 20px;
   width: 300px;
   bottom: 0;
+}
 
+#table-container th {
+  font-weight: 400;
+  font-style: italic;
+}
+
+#action {
+  width: 100%;
   font-family: Times, serif;
-  margin-top: 100px;
 }
 
 #action td {
@@ -21,6 +28,24 @@ html, body {
 
 .s-label {
   font-style: italic;
+}
+
+#minimize {
+  background: none;
+  border: 1px solid black;
+  font-family: Times, serif;
+  font-size: 14px;
+  float: right;
+  margin-top: 10px;
+  border-radius: 3px;
+}
+
+#minimize:hover {
+  background-color: #ccc;
+}
+
+#minimize:active {
+  background-color: #888;
 }
 
 #plot {

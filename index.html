@@ -6,25 +6,28 @@
   </head>
   <body>
     <div id="plot"></div>
-    <table id="action" rules="groups">
-      <thead>
-        <tr>
-          <th>PE</th>
-          <th>-</th>
-          <th>KE</th>
-          <th>=</th>
-          <th>E<sub>total</sub></th>
-          <th>S</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-      <tfoot>
-        <tr>
-          <td colspan="5" class="s-label">Total Action, S:</td>
-          <td class="sum"></td>
-        </tr>
-      </tfoot>
-    </table>
+    <div id="table-container">
+      <table id="action" rules="groups">
+        <thead>
+          <tr>
+            <th>PE</th>
+            <th>-</th>
+            <th>KE</th>
+            <th>=</th>
+            <th>E<sub>total</sub></th>
+            <th>Action, S</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5" class="s-label">Total Action, S:</td>
+            <td class="sum"></td>
+          </tr>
+        </tfoot>
+      </table>
+      <button id="minimize">Minimize Action</button>
+    </div>
     <script src="bundle.js"></script>
   </body>
 </html>
