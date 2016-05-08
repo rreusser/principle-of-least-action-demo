@@ -13,7 +13,7 @@ var margin = {
 var width = el.offsetWidth - margin.right - margin.left;
 var height = el.offsetHeight - margin.top - margin.bottom;
 
-height = Math.min(width * 0.7, height);
+height = Math.min(width * 0.5, height);
 
 var g = 9.81;
 var v0;
@@ -63,17 +63,32 @@ function recomputeT () {
   }
 }
 
-function computeTrajectory () {
+function linearizeTimescale () {
+  for (var i = 0; i < n; i++) {
+    var t = t0 + (t1 - t0) * i / (n - 1);
+    trajectoryData[i].t = t;
+  }
+}
+
+function computeLinearTrajectory () {
   v0 = (y1 - y0 + 0.5 * g * t1 * t1) / t1;
   for (var i = 0; i < n; i++) {
     var t = t0 + (t1 - t0) * i / (n - 1);
     var y = y0 + (y1 - y0) * (t - t0) / (t1 - t0);
-    // var y = v0 * t - 0.5 * g * t * t;
     trajectoryData[i] = {t: t, y: y};
   }
 }
 
-computeTrajectory();
+function computeMinimizedTrajectory () {
+  v0 = (y1 - y0 + 0.5 * g * t1 * t1) / t1;
+  for (var i = 0; i < n; i++) {
+    var t = t0 + (t1 - t0) * i / (n - 1);
+    var y = y0 + v0 * t - 0.5 * g * t * t;
+    trajectoryData[i] = {t: t, y: y};
+  }
+}
+
+computeLinearTrajectory();
 computeRefTrajectory();
 
 var tScale = d3.scale.linear().domain([t0, t1]).range([0, width]);
@@ -132,6 +147,11 @@ var refPath = trajectory.append('path')
 var path = trajectory.append('path')
     .attr('class', 'trajectory')
     .attr('d', line(trajectoryData));
+
+d3.select('#minimize')
+    .on('click', function () {
+      minimizeAction();
+    });
 
 function isEndpoint (d, i) {
   return i === 0 || i === trajectoryData.length - 1;
@@ -249,7 +269,7 @@ function dragstarted (d, i) {
 
   if (isEndpoint(d, i)) {
     updateRefTrajectory(refTrajectoryData);
-    computeTrajectory();
+    linearizeTimescale();
   }
 }
 
@@ -264,7 +284,7 @@ function dragged (d, i) {
   }
   if (isEndpoint(d, i)) {
     updateRefTrajectory(refTrajectoryData);
-    computeTrajectory();
+    linearizeTimescale();
   }
 
   updateTrajectory(trajectoryData);
@@ -275,7 +295,13 @@ function dragended (d, i) {
 
   if (isEndpoint(d, i)) {
     updateRefTrajectory(refTrajectoryData);
-    computeTrajectory();
+    linearizeTimescale();
   }
 }
 
+function minimizeAction () {
+  computeMinimizedTrajectory();
+  transitionDuration = 500;
+  updateTrajectory(trajectoryData);
+  transitionDuration = 0;
+}
