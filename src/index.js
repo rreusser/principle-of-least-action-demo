@@ -13,6 +13,8 @@ var margin = {
 var width = el.offsetWidth - margin.right - margin.left;
 var height = el.offsetHeight - margin.top - margin.bottom;
 
+height = Math.min(width * 0.7, height);
+
 var g = 9.81;
 var v0;
 var nRef = 100;
