@@ -17,6 +17,10 @@ html, body {
   font-style: italic;
 }
 
+#table-container .action-label {
+  text-align: right;
+}
+
 #action {
   width: 100%;
   font-family: Times, serif;
@@ -46,6 +50,7 @@ html, body {
 
 #minimize:active {
   background-color: #888;
+  color: white;
 }
 
 #plot {
