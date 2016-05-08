@@ -4,7 +4,7 @@
   "description": "A D3 demo to illustrate the Principle of Least Action",
   "main": "index.js",
   "scripts": {
-    "start": "budo src/index.js:src/bundle.js --live --open --dir src",
+    "start": "budo src/index.js:bundle.js --live --open --dir src",
     "test": "semistandard",
     "build:js": "browserify src/index.js | uglifyjs -cm > dist/bundle.js",
     "build:html": "cp src/index.html dist/index.html",
