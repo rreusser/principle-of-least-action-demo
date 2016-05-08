@@ -34,23 +34,31 @@ html, body {
   font-style: italic;
 }
 
-#minimize {
+.btn {
+  display: inline-block;
   background: none;
   border: 1px solid black;
   font-family: Times, serif;
   font-size: 14px;
-  float: right;
-  margin-top: 10px;
   border-radius: 3px;
 }
 
-#minimize:hover {
+.btn:hover {
   background-color: #ccc;
 }
 
-#minimize:active {
+.btn:active {
   background-color: #888;
   color: white;
+}
+
+.btn-container {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.btn:not(:last-child) {
+  margin-right: 0.5em;
 }
 
 #plot {
@@ -86,6 +94,14 @@ svg {
 .lineplot path {
   stroke: #000;
   fill: none;
+}
+
+.ref-trajectory {
+  display: none;
+}
+
+.ref-visible .ref-trajectory {
+  display: block;
 }
 
 .lineplot path.ref-trajectory {
