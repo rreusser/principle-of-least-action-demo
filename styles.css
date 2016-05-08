@@ -1,0 +1,79 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#action {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  width: 170px;
+  bottom: 0;
+
+  font-family: Times, serif;
+  margin-top: 170px;
+}
+
+#action td {
+  text-align: right;
+  padding-right: 30px;
+}
+
+#plot {
+  position: absolute;
+  top: 0;
+  right: 170px;
+  bottom: 0;
+  left: 0;
+}
+
+svg {
+  background-color: #FFF;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.lineplot circle {
+  stroke: #000;
+  fill: #000;
+}
+
+.lineplot path {
+  stroke: #000;
+  fill: none;
+}
+
+.lineplot path.ref-trajectory {
+  stroke: #aaa;
+  stroke-dasharray: 5, 5;
+}
+
+.pt .handle {
+  opacity: 0;
+}
+
+.pt.draggable circle {
+  cursor: ns-resize;
+}
+
+.pt.draggable-nsew circle {
+  cursor: move;
+}
+
+.pt.draggable.hover .handle,
+.pt.draggable.dragging .handle {
+  opacity: 0.1;
+}
+
