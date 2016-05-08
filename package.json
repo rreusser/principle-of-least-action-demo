@@ -1,7 +1,7 @@
 {
   "name": "principle-of-least-action-demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "A D3 demo to illustrate the Principle of Least Action",
   "main": "index.js",
   "scripts": {
     "start": "budo src/index.js:src/bundle.js --live --open --dir src",
@@ -9,7 +9,8 @@
     "build:js": "browserify src/index.js | uglifyjs -cm > dist/bundle.js",
     "build:html": "cp src/index.html dist/index.html",
     "build:css": "cp src/styles.css dist/styles.css",
-    "build": "mkdir -p dist && npm run build:html && npm run build:js && npm run build:css"
+    "build": "mkdir -p dist && npm run build:html && npm run build:js && npm run build:css",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
