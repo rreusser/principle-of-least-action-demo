@@ -153,6 +153,16 @@ d3.select('#minimize')
       minimizeAction();
     });
 
+d3.select('#toggle-ref')
+    .on('click', function () {
+      svg.classed('ref-visible', !svg.classed('ref-visible'))
+
+      d3.select(this)
+          .text(function () {
+            return svg.classed('ref-visible') ? 'Hide Solution' : 'Show Solution';
+          });
+    })
+
 function isEndpoint (d, i) {
   return i === 0 || i === trajectoryData.length - 1;
 }
