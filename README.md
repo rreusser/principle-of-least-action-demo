@@ -2,7 +2,7 @@
 
 Playing with D3. A quick demo to illustrate the [Principle of Least Action](https://en.wikipedia.org/wiki/Principle_of_least_action).
 
-See demo at: http://rickyreusser.com/principle-of-least-action-demo/
+See demo at: https://rreusser.github.io/principle-of-least-action-demo/
 
 ## License
 
